@@ -11,732 +11,1285 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #150d11;
+    color: #fff8ed;
+    font-family: "Cormorant Garamond", serif;
+}
+
+/* ==========================================
+   START SCREEN
+========================================== */
+
+#startScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 210, 130, 0.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(235, 120, 160, 0.18),
+            transparent 35%
+        ),
+        #211216;
+
+    cursor: pointer;
+
+    transition: opacity 1s ease;
+}
+
+#startScreen span {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.75;
+
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 10px;
+}
+
+/* ==========================================
+   EXPERIENCE
+========================================== */
+
+#experience {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.section {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 1.5s ease;
+}
+
+.section.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================
+   STEP 1 — VINTAGE OPENING
+========================================== */
+
+#opening {
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255, 231, 142, 0.9),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(245, 154, 183, 0.75),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f1b1a9 0%,
+            #f5cf85 45%,
+            #d998aa 100%
+        );
+
+    overflow: hidden;
+}
+
+#opening::before {
+    content: "";
+
+    position: absolute;
+    inset: -30%;
+
+    background:
+        repeating-linear-gradient(
+            35deg,
+            rgba(255,255,255,0.05) 0px,
+            rgba(255,255,255,0.05) 1px,
+            transparent 1px,
+            transparent 5px
+        );
+
+    opacity: 0.45;
+
+    animation: grain 1.5s steps(2) infinite;
+}
+
+@keyframes grain {
+
+    0% {
+        transform: translate(0,0);
     }
 
-    html, body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+    25% {
+        transform: translate(-2%,2%);
     }
 
-    body {
-        background: #1b1115;
-        font-family: "Cormorant Garamond", serif;
-        color: #fff8ed;
+    50% {
+        transform: translate(2%,-1%);
     }
 
-    /* =========================
-       START SCREEN
-    ========================== */
-
-    #startScreen {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background:
-            radial-gradient(circle at 20% 20%, rgba(255, 198, 129, .18), transparent 30%),
-            radial-gradient(circle at 80% 70%, rgba(236, 124, 161, .18), transparent 35%),
-            #211216;
-        cursor: pointer;
-        transition: opacity 1.2s ease;
+    75% {
+        transform: translate(-1%,-2%);
     }
 
-    #startScreen span {
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        opacity: .75;
-        border-bottom: 1px solid rgba(255,255,255,.3);
-        padding-bottom: 10px;
+    100% {
+        transform: translate(0,0);
     }
+}
 
-    /* =========================
-       MAIN EXPERIENCE
-    ========================== */
+.opening-text {
 
-    #experience {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-    }
+    position: relative;
+    z-index: 2;
 
-    .section {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    width: min(850px, 85%);
+
+    text-align: center;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(
+        30px,
+        5vw,
+        70px
+    );
+
+    line-height: 1.35;
+
+    color: #3e222b;
+
+    text-shadow:
+        0 2px 15px rgba(255,255,255,0.25);
+
+    animation:
+        textReveal 2.5s ease forwards;
+}
+
+.highlight {
+
+    background:
+        linear-gradient(
+            transparent 58%,
+            rgba(255,245,174,0.75) 58%
+        );
+
+    padding: 0 0.08em;
+}
+
+@keyframes textReveal {
+
+    from {
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 1.5s ease;
+        transform: translateY(20px);
+        filter: blur(8px);
     }
 
-    .section.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* =========================
-       STEP 1 — VINTAGE OPENING
-    ========================== */
-
-    #opening {
-        background:
-            radial-gradient(circle at 15% 15%, rgba(255, 231, 142, .9), transparent 30%),
-            radial-gradient(circle at 85% 85%, rgba(245, 154, 183, .75), transparent 35%),
-            linear-gradient(135deg, #f1b1a9 0%, #f5cf85 45%, #d998aa 100%);
-        overflow: hidden;
-    }
-
-    #opening::before {
-        content: "";
-        position: absolute;
-        inset: -30%;
-        background:
-            repeating-linear-gradient(
-                35deg,
-                rgba(255,255,255,.05) 0px,
-                rgba(255,255,255,.05) 1px,
-                transparent 1px,
-                transparent 5px
-            );
-        opacity: .45;
-        animation: grain 1.5s steps(2) infinite;
-    }
-
-    @keyframes grain {
-        0% { transform: translate(0,0); }
-        25% { transform: translate(-2%,2%); }
-        50% { transform: translate(2%,-1%); }
-        75% { transform: translate(-1%,-2%); }
-        100% { transform: translate(0,0); }
-    }
-
-    .opening-text {
-        width: min(850px, 85%);
-        text-align: center;
-        font-family: "Playfair Display", serif;
-        font-size: clamp(30px, 5vw, 70px);
-        line-height: 1.35;
-        color: #3e222b;
-        text-shadow: 0 2px 15px rgba(255,255,255,.25);
-        animation: textReveal 2.5s ease forwards;
-        position: relative;
-        z-index: 2;
-    }
-
-    .highlight {
-        display: inline;
-        background:
-            linear-gradient(
-                transparent 58%,
-                rgba(255, 245, 174, .75) 58%
-            );
-        padding: 0 .08em;
-    }
-
-    @keyframes textReveal {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-            filter: blur(8px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-    }
-
-    /* =========================
-       STEP 2 — MUSIC / LYRICS
-    ========================== */
-
-    #lyricsSection {
-        background:
-            radial-gradient(circle at center, rgba(90, 57, 69, .35), transparent 50%),
-            #160e12;
-    }
-
-    #lyricsSection::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-            radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.55) 100%);
-        pointer-events: none;
-    }
-
-    #lyric {
-        position: relative;
-        z-index: 2;
-        width: min(900px, 85%);
-        text-align: center;
-        font-family: "Playfair Display", serif;
-        font-style: italic;
-        font-size: clamp(28px, 4.8vw, 65px);
-        line-height: 1.3;
-        color: #f8e8dc;
-        opacity: 0;
-        transform: translateY(12px);
-        transition:
-            opacity .7s ease,
-            transform .7s ease,
-            filter .7s ease;
-        text-shadow: 0 0 40px rgba(255, 195, 184, .15);
-    }
-
-    #lyric.show {
+    to {
         opacity: 1;
         transform: translateY(0);
         filter: blur(0);
     }
+}
 
-    #lyric.hide {
-        opacity: 0;
-        transform: translateY(-8px);
-        filter: blur(4px);
+/* ==========================================
+   STEP 2 — MUSIC + LYRICS
+========================================== */
+
+#lyricsSection {
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(90,57,69,0.35),
+            transparent 50%
+        ),
+        #160e12;
+}
+
+#lyricsSection::after {
+
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(0,0,0,0.55) 100%
+        );
+
+    pointer-events: none;
+}
+
+#lyric {
+
+    position: relative;
+    z-index: 2;
+
+    width: min(950px, 88%);
+
+    text-align: center;
+
+    font-family: "Playfair Display", serif;
+
+    font-style: italic;
+
+    font-size: clamp(
+        27px,
+        4.5vw,
+        62px
+    );
+
+    line-height: 1.35;
+
+    color: #f8e8dc;
+
+    opacity: 0;
+
+    transform: translateY(12px);
+
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s ease;
+}
+
+#lyric.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+#lyric.hide {
+
+    opacity: 0;
+
+    transform: translateY(-10px);
+}
+
+/* ==========================================
+   STEP 3 — BEFORE THE DAY FADES
+========================================== */
+
+#beforeFade {
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(245,191,136,0.15),
+            transparent 40%
+        ),
+        #191014;
+}
+
+#beforeText {
+
+    position: absolute;
+
+    font-family: "Playfair Display", serif;
+
+    font-style: italic;
+
+    font-size: clamp(
+        34px,
+        6vw,
+        78px
+    );
+
+    color: #f3dfd0;
+
+    text-align: center;
+
+    transition:
+        transform 2s cubic-bezier(.22,.61,.36,1),
+        opacity 1.2s ease;
+}
+
+#beforeText.move-up {
+
+    transform: translateY(-30vh);
+}
+
+/* ==========================================
+   COUNTDOWN
+========================================== */
+
+#countdown {
+
+    position: absolute;
+
+    top: 46%;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: clamp(
+        55px,
+        10vw,
+        140px
+    );
+
+    letter-spacing: 10px;
+
+    color: #f8e5d8;
+
+    opacity: 0;
+
+    transform: scale(0.95);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+#countdown.show {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+/* ==========================================
+   CAKE
+========================================== */
+
+#cakeArea {
+
+    position: absolute;
+
+    bottom: 8vh;
+
+    width: min(
+        430px,
+        82vw
+    );
+
+    height: 390px;
+
+    opacity: 0;
+
+    transform:
+        translateY(40px);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s cubic-bezier(.22,.61,.36,1);
+}
+
+#cakeArea.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+/* Plate */
+
+.plate {
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 92%;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #f1e8df 0%,
+            #d6cbc2 52%,
+            #9d9089 100%
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.45),
+        inset 0 5px 10px rgba(255,255,255,0.55);
+}
+
+/* Cake */
+
+.cake {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 35px;
+
+    transform:
+        translateX(-50%);
+
+    width: 82%;
+    height: 210px;
+
+    border-radius:
+        24px
+        24px
+        38px
+        38px;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+
+            #28110d 0px,
+            #28110d 22px,
+
+            #f2dfcf 22px,
+            #f2dfcf 34px,
+
+            #3a1712 34px,
+            #3a1712 60px
+        );
+
+    box-shadow:
+        inset 12px 0 20px rgba(255,255,255,0.08),
+        inset -15px 0 25px rgba(0,0,0,0.35),
+        0 20px 30px rgba(0,0,0,0.4);
+}
+
+.cake::before {
+
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        radial-gradient(
+            circle at 12% 30%,
+            rgba(255,255,255,0.08) 0 3px,
+            transparent 4px
+        ),
+        radial-gradient(
+            circle at 80% 55%,
+            rgba(255,255,255,0.06) 0 2px,
+            transparent 3px
+        );
+}
+
+.cake-top {
+
+    position: absolute;
+
+    width: 100%;
+    height: 55px;
+
+    top: -24px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #5b241d 0%,
+            #3a1612 55%,
+            #1e0b09 100%
+        );
+
+    box-shadow:
+        inset 0 9px 12px rgba(255,255,255,0.1),
+        0 8px 12px rgba(0,0,0,0.4);
+}
+
+.cream {
+
+    position: absolute;
+
+    top: -4px;
+
+    width: 100%;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-radial-gradient(
+            ellipse at center,
+            #f6eee7 0 8px,
+            #e5d9d0 9px 12px
+        );
+
+    opacity: 0.95;
+}
+
+/* Cherries */
+
+.cherry {
+
+    position: absolute;
+
+    width: 23px;
+    height: 23px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #ff6d68 0%,
+            #9f1018 45%,
+            #4c070b 100%
+        );
+
+    box-shadow:
+        0 3px 5px rgba(0,0,0,0.4);
+}
+
+.cherry:nth-child(1) {
+
+    left: 17%;
+    top: -28px;
+}
+
+.cherry:nth-child(2) {
+
+    left: 46%;
+    top: -37px;
+}
+
+.cherry:nth-child(3) {
+
+    right: 16%;
+    top: -27px;
+}
+
+/* Candles */
+
+.candles {
+
+    position: absolute;
+
+    left: 50%;
+    top: -75px;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    gap: 45px;
+
+    align-items: flex-end;
+}
+
+.candle-wrap {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.flame {
+
+    width: 18px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 65%,
+            #fff7a6 0 20%,
+            #ffbe43 35%,
+            #ff701f 65%,
+            transparent 70%
+        );
+
+    filter:
+        drop-shadow(
+            0 0 10px rgba(255,174,54,0.8)
+        );
+
+    transform-origin: bottom;
+
+    animation:
+        flicker 0.7s infinite alternate ease-in-out;
+
+    margin-bottom: -2px;
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+@keyframes flicker {
+
+    from {
+        transform:
+            scaleX(0.9)
+            rotate(-3deg);
     }
 
-    /* =========================
-       STEP 3 — BEFORE DAY FADES
-    ========================== */
-
-    #beforeFade {
-        background:
-            radial-gradient(circle at 50% 30%, rgba(245, 191, 136, .15), transparent 40%),
-            #191014;
+    to {
+        transform:
+            scaleX(1.1)
+            rotate(3deg)
+            translateY(-2px);
     }
+}
 
-    #beforeText {
-        position: absolute;
-        font-family: "Playfair Display", serif;
-        font-size: clamp(34px, 6vw, 78px);
-        font-style: italic;
-        color: #f3dfd0;
-        text-align: center;
-        transition:
-            transform 2s cubic-bezier(.22,.61,.36,1),
-            opacity 1.2s ease;
+.candle {
+
+    width: 15px;
+    height: 68px;
+
+    border-radius:
+        6px
+        6px
+        3px
+        3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8c5f62,
+            #f5d4b2 35%,
+            #d7989a 65%,
+            #71484d
+        );
+
+    box-shadow:
+        inset 2px 0 3px rgba(255,255,255,0.4),
+        2px 4px 5px rgba(0,0,0,0.25);
+}
+
+#blowButton {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -58px;
+
+    transform:
+        translateX(-50%);
+
+    background: transparent;
+
+    border:
+        1px solid rgba(248,225,209,0.45);
+
+    color: #f8e5d8;
+
+    padding:
+        11px 24px;
+
+    border-radius: 50px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: 0.4s ease;
+}
+
+#blowButton:hover {
+
+    background:
+        rgba(255,255,255,0.08);
+
+    transform:
+        translateX(-50%)
+        translateY(-2px);
+}
+
+.blown {
+
+    opacity: 0;
+
+    transform:
+        scale(0.2)
+        translateY(15px);
+}
+
+/* ==========================================
+   FINAL MESSAGE
+========================================== */
+
+#finalSection {
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(151,90,104,0.15),
+            transparent 45%
+        ),
+        #150d11;
+
+    padding: 25px;
+}
+
+#finalMessage {
+
+    width: min(
+        720px,
+        88%
+    );
+
+    text-align: center;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            23px,
+            3.2vw,
+            38px
+        );
+
+    line-height: 1.45;
+
+    color: #f5e5db;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
+}
+
+#finalMessage.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+#finalMessage p {
+
+    margin-bottom: 22px;
+}
+
+#finalMessage .special {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-style: italic;
+}
+
+#finalMessage .happy {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 1.18em;
+
+    margin-top: 35px;
+}
+
+/* ==========================================
+   FINAL BLACK FADE
+========================================== */
+
+#blackFade {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #000;
+
+    z-index: 2000;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 5s ease;
+}
+
+#blackFade.show {
+
+    opacity: 1;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .candles {
+
+        gap: 32px;
     }
-
-    #beforeText.move-up {
-        transform: translateY(-30vh);
-    }
-
-    /* =========================
-       COUNTDOWN
-    ========================== */
-
-    #countdown {
-        position: absolute;
-        top: 46%;
-        font-family: "DM Mono", monospace;
-        font-size: clamp(55px, 10vw, 140px);
-        letter-spacing: 10px;
-        color: #f8e5d8;
-        opacity: 0;
-        transition: opacity .5s ease, transform .5s ease;
-    }
-
-    #countdown.show {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    /* =========================
-       CAKE SECTION
-    ========================== */
 
     #cakeArea {
-        position: absolute;
-        bottom: 8vh;
-        width: min(430px, 82vw);
-        height: 390px;
-        opacity: 0;
-        transform: translateY(40px);
-        transition:
-            opacity 1.5s ease,
-            transform 1.5s cubic-bezier(.22,.61,.36,1);
+
+        transform:
+            scale(0.88)
+            translateY(40px);
     }
 
     #cakeArea.show {
-        opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            scale(0.88)
+            translateY(0);
     }
+}
 
-    /* plate */
-    .plate {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92%;
-        height: 48px;
-        border-radius: 50%;
-        background:
-            radial-gradient(ellipse at center,
-                #f1e8df 0%,
-                #d6cbc2 52%,
-                #9d9089 100%);
-        box-shadow:
-            0 15px 35px rgba(0,0,0,.45),
-            inset 0 5px 10px rgba(255,255,255,.55);
-    }
-
-    /* realistic-ish black forest cake */
-    .cake {
-        position: absolute;
-        left: 50%;
-        bottom: 35px;
-        transform: translateX(-50%);
-        width: 82%;
-        height: 210px;
-        border-radius: 24px 24px 38px 38px;
-        background:
-            repeating-linear-gradient(
-                to bottom,
-                #28110d 0px,
-                #28110d 22px,
-                #f2dfcf 22px,
-                #f2dfcf 34px,
-                #3a1712 34px,
-                #3a1712 60px
-            );
-        box-shadow:
-            inset 12px 0 20px rgba(255,255,255,.08),
-            inset -15px 0 25px rgba(0,0,0,.35),
-            0 20px 30px rgba(0,0,0,.4);
-        overflow: visible;
-    }
-
-    .cake::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background:
-            radial-gradient(circle at 12% 30%, rgba(255,255,255,.08) 0 3px, transparent 4px),
-            radial-gradient(circle at 80% 55%, rgba(255,255,255,.06) 0 2px, transparent 3px);
-        opacity: .8;
-    }
-
-    .cake-top {
-        position: absolute;
-        width: 100%;
-        height: 55px;
-        top: -24px;
-        border-radius: 50%;
-        background:
-            radial-gradient(ellipse at center,
-                #5b241d 0%,
-                #3a1612 55%,
-                #1e0b09 100%);
-        box-shadow:
-            inset 0 9px 12px rgba(255,255,255,.1),
-            0 8px 12px rgba(0,0,0,.4);
-    }
-
-    .cream {
-        position: absolute;
-        top: -4px;
-        width: 100%;
-        height: 28px;
-        border-radius: 50%;
-        background:
-            repeating-radial-gradient(
-                ellipse at center,
-                #f6eee7 0 8px,
-                #e5d9d0 9px 12px
-            );
-        opacity: .95;
-    }
-
-    .cherry {
-        position: absolute;
-        width: 23px;
-        height: 23px;
-        border-radius: 50%;
-        background:
-            radial-gradient(circle at 30% 25%, #ff6d68 0%, #9f1018 45%, #4c070b 100%);
-        box-shadow: 0 3px 5px rgba(0,0,0,.4);
-    }
-
-    .cherry:nth-child(1) { left: 17%; top: -28px; }
-    .cherry:nth-child(2) { left: 46%; top: -37px; }
-    .cherry:nth-child(3) { right: 16%; top: -27px; }
-
-    /* candles */
-    .candles {
-        position: absolute;
-        left: 50%;
-        top: -75px;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 45px;
-        align-items: flex-end;
-    }
-
-    .candle-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .flame {
-        width: 18px;
-        height: 30px;
-        border-radius: 50% 50% 50% 50%;
-        background:
-            radial-gradient(circle at 50% 65%, #fff7a6 0 20%, #ffbe43 35%, #ff701f 65%, transparent 70%);
-        filter: drop-shadow(0 0 10px rgba(255,174,54,.8));
-        transform-origin: bottom;
-        animation: flicker .7s infinite alternate ease-in-out;
-        margin-bottom: -2px;
-        transition: opacity .8s ease, transform .8s ease;
-    }
-
-    @keyframes flicker {
-        from { transform: scaleX(.9) rotate(-3deg); }
-        to { transform: scaleX(1.1) rotate(3deg) translateY(-2px); }
-    }
-
-    .candle {
-        width: 15px;
-        height: 68px;
-        border-radius: 6px 6px 3px 3px;
-        background:
-            linear-gradient(
-                90deg,
-                #8c5f62,
-                #f5d4b2 35%,
-                #d7989a 65%,
-                #71484d
-            );
-        box-shadow:
-            inset 2px 0 3px rgba(255,255,255,.4),
-            2px 4px 5px rgba(0,0,0,.25);
-    }
-
-    #blowButton {
-        position: absolute;
-        left: 50%;
-        bottom: -58px;
-        transform: translateX(-50%);
-        background: transparent;
-        border: 1px solid rgba(248,225,209,.45);
-        color: #f8e5d8;
-        padding: 11px 24px;
-        border-radius: 50px;
-        font-family: "DM Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: .4s ease;
-    }
-
-    #blowButton:hover {
-        background: rgba(255,255,255,.08);
-        transform: translateX(-50%) translateY(-2px);
-    }
-
-    .blown {
-        opacity: 0;
-        transform: scale(.2) translateY(15px);
-    }
-
-    /* =========================
-       FINAL MESSAGE
-    ========================== */
-
-    #finalSection {
-        background:
-            radial-gradient(circle at 50% 40%, rgba(151, 90, 104, .15), transparent 45%),
-            #150d11;
-        padding: 25px;
-    }
-
-    #finalMessage {
-        width: min(720px, 88%);
-        text-align: center;
-        font-family: "Cormorant Garamond", serif;
-        font-size: clamp(23px, 3.2vw, 38px);
-        line-height: 1.45;
-        color: #f5e5db;
-        opacity: 0;
-        transform: translateY(15px);
-        transition: opacity 2s ease, transform 2s ease;
-    }
-
-    #finalMessage.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    #finalMessage p {
-        margin-bottom: 22px;
-    }
-
-    #finalMessage .special {
-        font-family: "Playfair Display", serif;
-        font-style: italic;
-    }
-
-    #finalMessage .happy {
-        font-family: "Playfair Display", serif;
-        font-size: 1.18em;
-        margin-top: 35px;
-    }
-
-    /* =========================
-       FINAL BLACK FADE
-    ========================== */
-
-    #blackFade {
-        position: fixed;
-        inset: 0;
-        background: #000;
-        z-index: 200;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 5s ease;
-    }
-
-    #blackFade.show {
-        opacity: 1;
-    }
-
-    @media (max-width: 600px) {
-        .candles {
-            gap: 32px;
-        }
-
-        .cakeArea {
-            transform: scale(.88) translateY(40px);
-        }
-
-        #cakeArea.show {
-            transform: scale(.88) translateY(0);
-        }
-    }
 </style>
 </head>
 
 <body>
 
-<!-- TAP TO BEGIN -->
+
+<!-- ==========================================
+     START
+========================================== -->
+
 <div id="startScreen">
     <span>tap to begin</span>
 </div>
 
-<!-- AUDIO -->
-<audio id="song" preload="auto">
-    <source src="love-me-not.mp3" type="audio/mpeg">
+
+<!-- ==========================================
+     AUDIO
+
+     IMPORTANT:
+     love-me-not.mp3 must be in the SAME
+     folder as this index.html file.
+========================================== -->
+
+<audio
+    id="song"
+    preload="auto"
+    src="love-me-not.mp3">
 </audio>
+
 
 <div id="experience">
 
-    <!-- STEP 1 -->
-    <section id="opening" class="section active">
-        <div class="opening-text">
-            <span class="highlight">If there was one thing I could change about today,</span><br>
-            <span class="highlight">I think you already know what it would be.</span>
-        </div>
-    </section>
 
-    <!-- STEP 2 -->
-    <section id="lyricsSection" class="section">
-        <div id="lyric"></div>
-    </section>
+<!-- ==========================================
+     STEP 1
+========================================== -->
 
-    <!-- STEP 3 + 4 + 5 -->
-    <section id="beforeFade" class="section">
+<section
+    id="opening"
+    class="section active">
 
-        <div id="beforeText">and before the day fades.</div>
+    <div class="opening-text">
 
-        <div id="countdown"></div>
+        <span class="highlight">
+            If there was one thing I could change about today,
+        </span>
 
-        <div id="cakeArea">
+        <br>
 
-            <div class="candles">
-                <div class="candle-wrap">
-                    <div class="flame"></div>
-                    <div class="candle"></div>
-                </div>
+        <span class="highlight">
+            I think you already know what it would be.
+        </span>
 
-                <div class="candle-wrap">
-                    <div class="flame"></div>
-                    <div class="candle"></div>
-                </div>
+    </div>
 
-                <div class="candle-wrap">
-                    <div class="flame"></div>
-                    <div class="candle"></div>
-                </div>
+</section>
+
+
+<!-- ==========================================
+     STEP 2
+========================================== -->
+
+<section
+    id="lyricsSection"
+    class="section">
+
+    <div id="lyric"></div>
+
+</section>
+
+
+<!-- ==========================================
+     STEP 3 + COUNTDOWN + CAKE
+========================================== -->
+
+<section
+    id="beforeFade"
+    class="section">
+
+
+    <div id="beforeText">
+        and before the day fades
+    </div>
+
+
+    <div id="countdown"></div>
+
+
+    <div id="cakeArea">
+
+
+        <div class="candles">
+
+
+            <div class="candle-wrap">
+
+                <div class="flame"></div>
+
+                <div class="candle"></div>
+
             </div>
 
-            <div class="cake">
-                <div class="cake-top"></div>
-                <div class="cream"></div>
 
-                <div class="cherry"></div>
-                <div class="cherry"></div>
-                <div class="cherry"></div>
+            <div class="candle-wrap">
+
+                <div class="flame"></div>
+
+                <div class="candle"></div>
+
             </div>
 
-            <div class="plate"></div>
 
-            <button id="blowButton">blow</button>
+            <div class="candle-wrap">
 
-        </div>
+                <div class="flame"></div>
 
-    </section>
+                <div class="candle"></div>
 
-    <!-- STEP 6 -->
-    <section id="finalSection" class="section">
+            </div>
 
-        <div id="finalMessage">
-
-            <p>
-                I know I already wished you.<br>
-                But before this day ends, I just wanted to come back one more time.
-            </p>
-
-            <p class="special">
-                One wish was never going to be enough anyway.
-            </p>
-
-            <p>
-                Somehow, that didn't feel like enough.<br>
-                Maybe because I'm not there.<br>
-                Maybe because it's you. Who knows.
-            </p>
-
-            <p>
-                And whether it's at the beginning of your birthday or right before it ends,
-                I guess I just want to make sure you know that
-                <strong>you deserve to feel special.</strong>
-            </p>
-
-            <p class="happy">
-                Happy birthday. Again.
-            </p>
 
         </div>
 
-    </section>
+
+        <div class="cake">
+
+            <div class="cake-top"></div>
+
+            <div class="cream"></div>
+
+            <div class="cherry"></div>
+
+            <div class="cherry"></div>
+
+            <div class="cherry"></div>
+
+        </div>
+
+
+        <div class="plate"></div>
+
+
+        <button id="blowButton">
+            blow
+        </button>
+
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     STEP 6 — FINAL MESSAGE
+========================================== -->
+
+<section
+    id="finalSection"
+    class="section">
+
+
+    <div id="finalMessage">
+
+
+        <p>
+
+            I know I already wished you.<br>
+
+            But before this day ends,
+            I just wanted to come back one more time.
+
+        </p>
+
+
+        <p class="special">
+
+            One wish was never going to be enough anyway.
+
+        </p>
+
+
+        <p>
+
+            Somehow, that didn't feel like enough.<br>
+
+            Maybe because I'm not there.<br>
+
+            Maybe because it's you. Who knows.
+
+        </p>
+
+
+        <p>
+
+            And whether it's at the beginning
+            of your birthday or right before it ends,
+            I guess I just want to make sure you know that
+
+            <strong>
+                you deserve to feel special.
+            </strong>
+
+        </p>
+
+
+        <p class="happy">
+
+            Happy birthday. Again.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
 
 </div>
 
+
+<!-- FINAL FADE -->
+
 <div id="blackFade"></div>
+
 
 <script>
 
-const startScreen = document.getElementById("startScreen");
 
-const opening = document.getElementById("opening");
-const lyricsSection = document.getElementById("lyricsSection");
-const beforeFade = document.getElementById("beforeFade");
-const finalSection = document.getElementById("finalSection");
+/* ==========================================
+   ELEMENTS
+========================================== */
 
-const song = document.getElementById("song");
-const lyric = document.getElementById("lyric");
+const startScreen =
+    document.getElementById("startScreen");
 
-const beforeText = document.getElementById("beforeText");
-const countdown = document.getElementById("countdown");
+const opening =
+    document.getElementById("opening");
 
-const cakeArea = document.getElementById("cakeArea");
-const blowButton = document.getElementById("blowButton");
+const lyricsSection =
+    document.getElementById("lyricsSection");
 
-const finalMessage = document.getElementById("finalMessage");
-const blackFade = document.getElementById("blackFade");
+const beforeFade =
+    document.getElementById("beforeFade");
+
+const finalSection =
+    document.getElementById("finalSection");
+
+const song =
+    document.getElementById("song");
+
+const lyric =
+    document.getElementById("lyric");
+
+const beforeText =
+    document.getElementById("beforeText");
+
+const countdown =
+    document.getElementById("countdown");
+
+const cakeArea =
+    document.getElementById("cakeArea");
+
+const blowButton =
+    document.getElementById("blowButton");
+
+const finalMessage =
+    document.getElementById("finalMessage");
+
+const blackFade =
+    document.getElementById("blackFade");
 
 
 /* ==========================================
-   LYRIC TIMING
+   LYRIC TIMINGS
 
-   PUT YOUR OWN SHORT LYRIC PIECES BELOW.
+   AUDIO = 33 SECONDS
 
-   Each "time" is the second at which that
-   lyric should appear in your 33-second audio.
+   These are the lyric lines from your
+   screenshot.
 
-   If one line appears too early/late,
-   simply change its time value.
+   If your trimmed audio has slightly
+   different timing, ONLY change the
+   numbers on the left.
+
+   Example:
+   { time: 4.10, text: "..." }
+
+   means that lyric appears at 4.10 seconds.
 ========================================== */
 
 const lyrics = [
 
-    { time: 0.0, text: "[lyric line 1]" },
+    {
+        time: 0.00,
+        text: "And, oh, it's hard to see you, but I wish you were right here"
+    },
 
-    { time: 4.0, text: "[lyric line 2]" },
+    {
+        time: 4.25,
+        text: "Oh, it's hard to leave you when I get you everywhere"
+    },
 
-    { time: 8.0, text: "[lyric line 3]" },
+    {
+        time: 8.45,
+        text: "All this time I'm thinking we could never be a pair"
+    },
 
-    { time: 12.0, text: "[lyric line 4]" },
+    {
+        time: 12.55,
+        text: "Oh, no, I don't need you, but I miss you, come here"
+    },
 
-    { time: 16.0, text: "[lyric line 5]" },
+    {
+        time: 16.65,
+        text: "And, oh, it's hard to see you, but I wish you were right here"
+    },
 
-    { time: 20.0, text: "[lyric line 6]" },
+    {
+        time: 20.75,
+        text: "Oh, it's hard to leave you when I get you everywhere"
+    },
 
-    { time: 24.0, text: "[lyric line 7]" },
+    {
+        time: 24.85,
+        text: "All this time, I'm thinking I'm strong enough to sink it"
+    },
 
-    { time: 28.0, text: "[lyric line 8]" }
+    {
+        time: 28.75,
+        text: "Oh, no, I don't need you, but I miss you, come here"
+    }
 
 ];
 
+
 let currentLyric = -1;
+
+let experienceStarted = false;
+
+let musicFinished = false;
 
 
 /* ==========================================
-   START EXPERIENCE
+   START
 ========================================== */
 
-startScreen.addEventListener("click", startExperience, { once: true });
+startScreen.addEventListener(
+    "click",
+    startExperience,
+    { once: true }
+);
+
 
 function startExperience() {
 
-    /* Start audio silently NOW after user click.
-       This helps browsers allow playback later. */
+    if (experienceStarted) return;
 
-    song.volume = 0.001;
+    experienceStarted = true;
 
-    song.play().then(() => {
-        song.pause();
-        song.currentTime = 0;
-    }).catch(err => {
-        console.log("Audio needs interaction:", err);
-    });
+
+    /*
+        Opening screen stays visible first.
+        Audio does NOT start yet.
+    */
+
 
     startScreen.style.opacity = "0";
 
+
     setTimeout(() => {
+
         startScreen.style.display = "none";
-    }, 1200);
+
+    }, 1000);
 
 
-    /* Opening stays visible */
+    /*
+        Opening text gets time to be read.
+    */
 
     setTimeout(() => {
 
         opening.style.opacity = "0";
 
+
         setTimeout(() => {
 
             opening.classList.remove("active");
+
             lyricsSection.classList.add("active");
 
-            startMusicSequence();
+            startMusic();
 
         }, 1500);
+
 
     }, 5000);
 
@@ -744,72 +1297,131 @@ function startExperience() {
 
 
 /* ==========================================
-   MUSIC + LYRIC SEQUENCE
+   START MUSIC
 ========================================== */
 
-function startMusicSequence() {
+function startMusic() {
+
+    /*
+        IMPORTANT:
+
+        NO fade in.
+        NO fade out.
+
+        Audio starts at normal volume.
+    */
+
+    song.volume = 1.0;
 
     song.currentTime = 0;
-    song.volume = 0.001;
-
-    song.play();
-
-    /* gradual volume fade in */
-
-    let volume = 0.001;
-
-    const fadeIn = setInterval(() => {
-
-        volume += 0.04;
-
-        if (volume >= 0.85) {
-            volume = 0.85;
-            clearInterval(fadeIn);
-        }
-
-        song.volume = volume;
-
-    }, 100);
 
 
-    song.addEventListener("timeupdate", updateLyrics);
+    song.play()
+        .then(() => {
+
+            console.log(
+                "Love Me Not started."
+            );
+
+        })
+        .catch(error => {
+
+            console.log(
+                "Audio playback error:",
+                error
+            );
+
+        });
 
 
-    /* Audio is 33 seconds */
+    /*
+        Watch the audio continuously.
+    */
+
+    song.addEventListener(
+        "timeupdate",
+        updateLyrics
+    );
+
+
+    /*
+        The trimmed audio should be 33 seconds.
+
+        At exactly 33 seconds,
+        move to the next section.
+    */
 
     setTimeout(() => {
 
-        fadeOutMusic();
+        finishMusic();
 
-    }, 28500);
+    }, 33000);
 
 }
 
 
+/* ==========================================
+   SYNCHRONIZED LYRICS
+========================================== */
+
 function updateLyrics() {
 
-    let index = -1;
+    const currentTime =
+        song.currentTime;
 
-    for (let i = 0; i < lyrics.length; i++) {
 
-        if (song.currentTime >= lyrics[i].time) {
-            index = i;
+    let newLyricIndex = -1;
+
+
+    for (
+        let i = 0;
+        i < lyrics.length;
+        i++
+    ) {
+
+        if (
+            currentTime >=
+            lyrics[i].time
+        ) {
+
+            newLyricIndex = i;
+
         }
 
     }
 
-    if (index !== currentLyric && index !== -1) {
 
-        currentLyric = index;
+    /*
+        Only change the screen when
+        the lyric actually changes.
+    */
+
+    if (
+        newLyricIndex !== currentLyric &&
+        newLyricIndex !== -1
+    ) {
+
+        currentLyric =
+            newLyricIndex;
+
+
+        /*
+            Smooth visual transition
+            between lyric lines.
+        */
 
         lyric.classList.remove("show");
+
         lyric.classList.add("hide");
+
 
         setTimeout(() => {
 
-            lyric.textContent = lyrics[index].text;
+            lyric.textContent =
+                lyrics[newLyricIndex].text;
 
             lyric.classList.remove("hide");
+
             lyric.classList.add("show");
 
         }, 350);
@@ -820,43 +1432,78 @@ function updateLyrics() {
 
 
 /* ==========================================
-   MUSIC FADE OUT
+   FINISH 33-SECOND AUDIO
 ========================================== */
 
-function fadeOutMusic() {
+function finishMusic() {
 
-    const fadeOut = setInterval(() => {
+    if (musicFinished) return;
 
-        if (song.volume > 0.03) {
+    musicFinished = true;
 
-            song.volume -= 0.03;
 
-        } else {
+    /*
+        NO AUDIO FADE.
 
-            song.volume = 0;
-            song.pause();
+        Stop exactly here.
+    */
 
-            clearInterval(fadeOut);
+    song.pause();
 
-            lyric.classList.remove("show");
+    song.currentTime = 33;
 
-            setTimeout(startBeforeDaySequence, 1300);
 
-        }
+    /*
+        Lyrics disappear visually.
+    */
 
-    }, 100);
+    lyric.classList.remove("show");
+
+
+    /*
+        Give the last lyric a moment
+        to disappear before continuing.
+    */
+
+    setTimeout(() => {
+
+        startBeforeDay();
+
+    }, 1000);
 
 }
+
+
+/*
+    Safety:
+    If the browser reports that the audio
+    naturally ended, continue anyway.
+*/
+
+song.addEventListener(
+    "ended",
+    () => {
+
+        finishMusic();
+
+    }
+);
 
 
 /* ==========================================
    BEFORE THE DAY FADES
 ========================================== */
 
-function startBeforeDaySequence() {
+function startBeforeDay() {
 
     lyricsSection.classList.remove("active");
+
     beforeFade.classList.add("active");
+
+
+    /*
+        Text appears first.
+    */
 
     setTimeout(() => {
 
@@ -864,6 +1511,10 @@ function startBeforeDaySequence() {
 
     }, 2500);
 
+
+    /*
+        Countdown begins underneath.
+    */
 
     setTimeout(() => {
 
@@ -875,38 +1526,67 @@ function startBeforeDaySequence() {
 
 
 /* ==========================================
-   3 → 2 → 1
+   COUNTDOWN
 ========================================== */
 
 function runCountdown() {
 
-    const numbers = ["3", "2", "1"];
+    const numbers = [
+        "3",
+        "2",
+        "1"
+    ];
 
-    let i = 0;
 
-    function nextNumber() {
+    let index = 0;
 
-        if (i >= numbers.length) {
 
-            countdown.classList.remove("show");
+    function showNextNumber() {
 
-            setTimeout(showCake, 500);
 
-            return;
-        }
+        if (
+            index >=
+            numbers.length
+        ) {
 
-        countdown.textContent = numbers[i];
+            countdown.classList.remove(
+                "show"
+            );
 
-        countdown.classList.add("show");
-
-        setTimeout(() => {
-
-            countdown.classList.remove("show");
 
             setTimeout(() => {
 
-                i++;
-                nextNumber();
+                showCake();
+
+            }, 500);
+
+
+            return;
+
+        }
+
+
+        countdown.textContent =
+            numbers[index];
+
+
+        countdown.classList.add(
+            "show"
+        );
+
+
+        setTimeout(() => {
+
+            countdown.classList.remove(
+                "show"
+            );
+
+
+            setTimeout(() => {
+
+                index++;
+
+                showNextNumber();
 
             }, 350);
 
@@ -914,7 +1594,8 @@ function runCountdown() {
 
     }
 
-    nextNumber();
+
+    showNextNumber();
 
 }
 
@@ -925,43 +1606,74 @@ function runCountdown() {
 
 function showCake() {
 
-    cakeArea.classList.add("show");
+    cakeArea.classList.add(
+        "show"
+    );
 
 }
 
 
 /* ==========================================
-   BLOW OUT CANDLES
+   BLOW CANDLES
 ========================================== */
 
-blowButton.addEventListener("click", blowCandles);
+blowButton.addEventListener(
+    "click",
+    blowCandles
+);
+
 
 function blowCandles() {
 
-    const flames = document.querySelectorAll(".flame");
 
-    flames.forEach((flame, index) => {
+    const flames =
+        document.querySelectorAll(
+            ".flame"
+        );
 
-        setTimeout(() => {
-            flame.classList.add("blown");
-        }, index * 120);
 
-    });
+    flames.forEach(
+        (flame, index) => {
+
+            setTimeout(() => {
+
+                flame.classList.add(
+                    "blown"
+                );
+
+            }, index * 120);
+
+        }
+    );
+
 
     blowButton.style.opacity = "0";
-    blowButton.style.pointerEvents = "none";
+
+    blowButton.style.pointerEvents =
+        "none";
 
 
-    /* Wait, then transition away */
+    /*
+        Let the candle effect sit
+        for a moment.
+    */
 
     setTimeout(() => {
 
         cakeArea.style.opacity = "0";
-        cakeArea.style.transform = "translateY(-20px) scale(.96)";
+
+        cakeArea.style.transform =
+            "translateY(-20px) scale(.96)";
 
         beforeText.style.opacity = "0";
 
-        setTimeout(showFinalMessage, 1500);
+
+        setTimeout(() => {
+
+            showFinalMessage();
+
+        }, 1500);
+
 
     }, 1700);
 
@@ -974,22 +1686,39 @@ function blowCandles() {
 
 function showFinalMessage() {
 
-    beforeFade.classList.remove("active");
+    beforeFade.classList.remove(
+        "active"
+    );
 
-    finalSection.classList.add("active");
+
+    finalSection.classList.add(
+        "active"
+    );
+
 
     setTimeout(() => {
 
-        finalMessage.classList.add("show");
+        finalMessage.classList.add(
+            "show"
+        );
 
-        /* Keep message for ~20 seconds,
-           THEN slowly fade to black */
+
+        /*
+            The message stays visible
+            for 20 seconds.
+
+            ONLY AFTER THAT does the
+            final black fade begin.
+        */
 
         setTimeout(() => {
 
-            blackFade.classList.add("show");
+            blackFade.classList.add(
+                "show"
+            );
 
         }, 20000);
+
 
     }, 1000);
 
